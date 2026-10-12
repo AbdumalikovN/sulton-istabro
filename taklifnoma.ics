@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//sulton-istabro.uz//Taklifnoma//UZ
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:nikoh-toyi-20261031@sulton-istabro.uz
+DTSTAMP:20261012T150000Z
+DTSTART:20261031T130000Z
+DTEND:20261031T180000Z
+SUMMARY:Султонбек ва Истабро — никоҳ тўйи
+LOCATION:PRIMIER HALL ресторани\, Қибрай тумани\, Маданият массив
+GEO:41.428516;69.359190
+URL:https://sulton-istabro.uz/
+DESCRIPTION:«Висол оқшоми» · соат 18:00\nhttps://sulton-istabro.uz/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Эртага — Султонбек ва Истабронинг никоҳ тўйи
+TRIGGER:-P1D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Бугун соат 18:00 да — никоҳ тўйи
+TRIGGER:-PT3H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
