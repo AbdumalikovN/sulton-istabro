@@ -29,7 +29,7 @@
       l_p2: 'ларнинг никоҳ тўйлари муносабати билан 2026 йил 31 октябрь куни соат 18:00 да бўлиб ўтадиган «Висол оқшоми»га таклиф этамиз.',
       l_sign1: 'Ҳурмат ва эҳтиром ила',
       l_sign2: 'АБДУМАЛИК ХОЖИ ота ўғли АШРАФ СОДИКОВлар оиласи',
-      d_title: 'Тўй куни', d_hint: 'Тилла пардани бармоғингиз билан артинг', d_done: 'Ана шу кун!', d_open: 'Очиш',
+      d_title: 'Тўй куни', d_hint: 'Япроқларни бармоғингиз билан суринг', d_done: 'Ана шу кун!', d_open: 'Очиш',
       d_weekday: 'шанба', d_month: 'октябрь 2026', d_time: 'соат 18:00',
       cal_title: 'Октябрь 2026', wd: ['Ду', 'Се', 'Чор', 'Пай', 'Жу', 'Шан', 'Як'],
       v_title: 'Вақт ва манзил', v_name: '«PRIMIER HALL» ресторани', v_addr: 'Қибрай тумани, Маданият массив',
@@ -58,7 +58,7 @@
       l_p2: 'larning nikoh to‘ylari munosabati bilan 2026-yil 31-oktabr kuni soat 18:00 da bo‘lib o‘tadigan «Visol oqshomi»ga taklif etamiz.',
       l_sign1: 'Hurmat va ehtirom ila',
       l_sign2: 'ABDUMALIK HOJI ota o‘g‘li ASHRAF SODIKOVlar oilasi',
-      d_title: 'To‘y kuni', d_hint: 'Tilla pardani barmog‘ingiz bilan arting', d_done: 'Ana shu kun!', d_open: 'Ochish',
+      d_title: 'To‘y kuni', d_hint: 'Yaproqlarni barmog‘ingiz bilan suring', d_done: 'Ana shu kun!', d_open: 'Ochish',
       d_weekday: 'shanba', d_month: 'oktabr 2026', d_time: 'soat 18:00',
       cal_title: 'Oktabr 2026', wd: ['Du', 'Se', 'Chor', 'Pay', 'Ju', 'Shan', 'Yak'],
       v_title: 'Vaqt va manzil', v_name: '«PRIMIER HALL» restorani', v_addr: 'Qibray tumani, Madaniyat massivi',
@@ -87,7 +87,7 @@
       l_p2: '«Висол оқшоми» состоится 31 октября 2026 года в 18:00.',
       l_sign1: 'С уважением и почтением,',
       l_sign2: 'семья АШРАФА СОДИКОВА, сына АБДУМАЛИКА ХОЖИ ота',
-      d_title: 'День свадьбы', d_hint: 'Сотрите золото пальцем', d_done: 'Вот этот день!', d_open: 'Открыть',
+      d_title: 'День свадьбы', d_hint: 'Смахните листья пальцем', d_done: 'Вот этот день!', d_open: 'Открыть',
       d_weekday: 'суббота', d_month: 'октября 2026', d_time: 'в 18:00',
       cal_title: 'Октябрь 2026', wd: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
       v_title: 'Время и место', v_name: 'Ресторан «PRIMIER HALL»', v_addr: 'Кибрайский район, массив Маданият',
@@ -161,96 +161,117 @@
     $('#cdS').textContent = pad(left % 60);
   }
 
-  /* ---------- the sky: stars, dust, a falling star now and then ---------- */
+  /* ---------- autumn air: chinar leaves drifting down, gold dust on touch ---------- */
+  const LEAF = [[0,-.6],[.076,-.393],[.124,-.433],[.099,-.185],[.264,-.314],[.262,-.262],[.497,-.336],[.363,-.169],[.423,-.154],[.189,-.02],[.357,.044],[.313,.067],[.467,.179],[.283,.17],[.299,.217],[.094,.177],[0,.27],[-.094,.177],[-.299,.217],[-.283,.17],[-.467,.179],[-.313,.067],[-.357,.044],[-.189,-.02],[-.423,-.154],[-.363,-.169],[-.497,-.336],[-.262,-.262],[-.264,-.314],[-.099,-.185],[-.124,-.433],[-.076,-.393]];
+  const TONES = ['#B8501F', '#E08A2B', '#D2A23A', '#8E1F2F', '#C96A22', '#6F6B2C', '#A63A22'];
+
+  // kind 0 — chinar, kind 1 — long leaf; centred on (x, y), s is the leaf's height
+  function drawLeaf(ctx, x, y, s, rot, flip, color, alpha, kind) {
+    ctx.save();
+    ctx.translate(x, y); ctx.rotate(rot); ctx.scale(flip, 1);
+    ctx.globalAlpha = alpha; ctx.fillStyle = color;
+    ctx.beginPath();
+    if (kind === 0) {
+      for (let i = 0; i < LEAF.length; i++) ctx[i ? 'lineTo' : 'moveTo'](LEAF[i][0] * s, LEAF[i][1] * s);
+      ctx.closePath();
+    } else {
+      ctx.moveTo(0, -.6 * s);
+      ctx.bezierCurveTo(.22 * s, -.34 * s, .24 * s, .12 * s, 0, .5 * s);
+      ctx.bezierCurveTo(-.24 * s, .12 * s, -.22 * s, -.34 * s, 0, -.6 * s);
+    }
+    ctx.fill();
+    ctx.shadowColor = 'transparent';
+    ctx.strokeStyle = 'rgba(60,10,0,.3)'; ctx.lineWidth = Math.max(.6, s * .022); ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(0, -.5 * s); ctx.lineTo(0, (kind ? .64 : .52) * s);
+    if (kind === 0) { ctx.moveTo(0, .27 * s); ctx.lineTo(.42 * s, -.28 * s); ctx.moveTo(0, .27 * s); ctx.lineTo(-.42 * s, -.28 * s); }
+    ctx.stroke();
+    ctx.restore();
+  }
+
   const sky = (() => {
-    const cv = $('#stars');
+    const cv = $('#leaves');
     const ctx = cv.getContext('2d');
-    let w = 0, h = 0, dpr = 1, stars = [], dust = [], shot = null, nextShot = 6000, last = 0, p = 0;
+    let w = 0, h = 0, dpr = 1, leaves = [], bits = [], last = 0, p = 0;
+
+    const fresh = (anywhere) => ({
+      x: Math.random() * w, y: anywhere ? Math.random() * h : -30 - Math.random() * 80,
+      s: 13 + Math.random() * 15, rot: Math.random() * 6.28, vr: (Math.random() - .5) * 1.1,
+      vy: 16 + Math.random() * 26, sway: .5 + Math.random() * .9, amp: 14 + Math.random() * 26,
+      ph: Math.random() * 6.28, fl: .6 + Math.random() * 1.3,
+      color: TONES[Math.random() * TONES.length | 0], kind: Math.random() > .32 ? 0 : 1,
+    });
 
     function size() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       w = cv.clientWidth; h = cv.clientHeight;
       cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.round(Math.min(260, w * h / 5200));
-      let seed = 20261031;
-      const rnd = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
-      stars = Array.from({ length: count }, () => {
-        const big = rnd() > 0.93;
-        return {
-          x: rnd() * w, y: Math.pow(rnd(), 1.35) * h,
-          r: big ? 1.3 + rnd() * 0.7 : 0.45 + rnd() * 0.75,
-          a: 0.35 + rnd() * 0.65, sp: 0.4 + rnd() * 1.6, ph: rnd() * 6.28,
-          gold: rnd() > 0.72, big,
-        };
-      });
-      draw(performance.now());
+      const count = Math.round(Math.max(9, Math.min(34, w * h / 30000)));
+      leaves = Array.from({ length: count }, () => fresh(true));
+      draw(0, 0);
     }
 
-    function draw(t) {
+    function draw(t, dt) {
       ctx.clearRect(0, 0, w, h);
-      const night = 0.5 + 0.5 * Math.min(1, p * 2.2);
-      for (const s of stars) {
-        const tw = reduce ? 0.85 : 0.62 + 0.38 * Math.sin(t / 1000 * s.sp + s.ph);
-        const a = s.a * tw * night * (0.35 + 0.65 * (1 - s.y / h * (1 - p)));
-        ctx.fillStyle = s.gold ? `rgba(246,226,160,${a})` : `rgba(240,240,255,${a})`;
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.2832); ctx.fill();
-        if (s.big) {
-          ctx.strokeStyle = `rgba(246,231,176,${a * 0.5})`; ctx.lineWidth = 0.6;
-          ctx.beginPath(); ctx.moveTo(s.x - s.r * 3.2, s.y); ctx.lineTo(s.x + s.r * 3.2, s.y);
-          ctx.moveTo(s.x, s.y - s.r * 3.2); ctx.lineTo(s.x, s.y + s.r * 3.2); ctx.stroke();
-        }
+      const alpha = .8 - .32 * p;
+      for (const l of leaves) {
+        l.y += l.vy * dt; l.rot += l.vr * dt;
+        if (l.y > h + 40) Object.assign(l, fresh(false));
+        const x = l.x + Math.sin(t * l.sway + l.ph) * l.amp;
+        drawLeaf(ctx, x, l.y, l.s, l.rot, Math.cos(t * l.fl + l.ph) * .85 + .15, l.color, alpha, l.kind);
       }
-      for (let i = dust.length - 1; i >= 0; i--) {
-        const d = dust[i];
-        d.life -= 1 / 60 / d.ttl;
-        if (d.life <= 0) { dust.splice(i, 1); continue; }
-        d.x += d.vx; d.y += d.vy; d.vy += 0.035; d.vx *= 0.985;
-        ctx.fillStyle = `rgba(246,${205 + (d.tone * 30 | 0)},${120 + (d.tone * 60 | 0)},${d.life})`;
-        ctx.beginPath(); ctx.arc(d.x, d.y, d.r * (0.5 + d.life * 0.5), 0, 6.2832); ctx.fill();
-      }
-      if (shot) {
-        shot.t += 1 / 60 / 0.9;
-        if (shot.t >= 1) shot = null;
-        else {
-          const x = shot.x + shot.dx * shot.t, y = shot.y + shot.dy * shot.t;
-          const g = ctx.createLinearGradient(x, y, x - shot.dx * 0.22, y - shot.dy * 0.22);
-          const a = Math.sin(shot.t * Math.PI) * 0.9;
-          g.addColorStop(0, `rgba(255,246,216,${a})`); g.addColorStop(1, 'rgba(255,246,216,0)');
-          ctx.strokeStyle = g; ctx.lineWidth = 1.4; ctx.lineCap = 'round';
-          ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - shot.dx * 0.22, y - shot.dy * 0.22); ctx.stroke();
+      for (let i = bits.length - 1; i >= 0; i--) {
+        const d = bits[i];
+        d.life -= dt / d.ttl;
+        if (d.life <= 0) { bits.splice(i, 1); continue; }
+        d.x += d.vx; d.y += d.vy; d.vy += d.leaf ? .05 : .035; d.vx *= .985;
+        if (d.leaf) {
+          d.rot += d.vr;
+          drawLeaf(ctx, d.x, d.y, d.r, d.rot, Math.cos(d.rot * 1.7), d.color, Math.min(1, d.life * 1.6), d.kind);
+        } else {
+          ctx.fillStyle = `rgba(248,${205 + (d.tone * 30 | 0)},${120 + (d.tone * 60 | 0)},${d.life})`;
+          ctx.beginPath(); ctx.arc(d.x, d.y, d.r * (.5 + d.life * .5), 0, 6.2832); ctx.fill();
         }
       }
     }
 
-    function loop(t) {
-      if (!document.hidden && t - last > 30) {
-        if (!shot && (nextShot -= t - last) < 0) {
-          nextShot = 9000 + Math.random() * 9000;
-          shot = { x: w * (0.15 + Math.random() * 0.5), y: h * (0.05 + Math.random() * 0.25), dx: w * 0.42 + 120, dy: h * 0.16 + 40, t: 0 };
-        }
-        last = t; draw(t);
+    function loop(now) {
+      if (!document.hidden && now - last > 30) {
+        const dt = Math.min(.06, (now - last) / 1000);
+        last = now; draw(now / 1000, dt);
       }
       requestAnimationFrame(loop);
     }
 
-    function burst(x, y, n = 46) {
+    function burst(x, y, n = 46, asLeaves = false) {
       if (reduce) return;
       for (let i = 0; i < n; i++) {
-        const ang = Math.random() * 6.2832, v = 0.6 + Math.random() * 3.2;
-        dust.push({ x, y, vx: Math.cos(ang) * v, vy: Math.sin(ang) * v - 1.2, r: 0.8 + Math.random() * 1.9, life: 1, ttl: 0.9 + Math.random() * 1.2, tone: Math.random() });
+        const ang = Math.random() * 6.2832, v = .6 + Math.random() * (asLeaves ? 4.4 : 3.2);
+        bits.push({
+          x, y, vx: Math.cos(ang) * v, vy: Math.sin(ang) * v - 1.4, life: 1, ttl: .9 + Math.random() * 1.2, tone: Math.random(),
+          leaf: asLeaves, r: asLeaves ? 12 + Math.random() * 16 : .8 + Math.random() * 1.9,
+          rot: Math.random() * 6.28, vr: (Math.random() - .5) * .3, color: TONES[Math.random() * TONES.length | 0], kind: Math.random() > .4 ? 0 : 1,
+        });
       }
     }
     function sprinkle(x, y) {
-      if (reduce || dust.length > 120) return;
-      dust.push({ x, y, vx: (Math.random() - 0.5) * 0.8, vy: -0.2 - Math.random() * 0.5, r: 0.7 + Math.random() * 1.2, life: 1, ttl: 0.7 + Math.random() * 0.6, tone: Math.random() });
+      if (reduce || bits.length > 120) return;
+      bits.push({ x, y, vx: (Math.random() - .5) * .8, vy: -.2 - Math.random() * .5, r: .7 + Math.random() * 1.2, life: 1, ttl: .7 + Math.random() * .6, tone: Math.random() });
+    }
+    function fling(x, y, dx, dy) {
+      if (reduce || bits.length > 90) return;
+      bits.push({
+        x, y, vx: dx * .12 + (Math.random() - .5) * 2.4, vy: dy * .12 - 1 - Math.random() * 1.6, life: 1, ttl: .8 + Math.random() * .7, tone: 0,
+        leaf: true, r: 14 + Math.random() * 14, rot: Math.random() * 6.28, vr: (Math.random() - .5) * .34,
+        color: TONES[Math.random() * TONES.length | 0], kind: Math.random() > .4 ? 0 : 1,
+      });
     }
 
     size();
     let rz;
     addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(size, 150); });
     if (!reduce) requestAnimationFrame(loop);
-    return { burst, sprinkle, setProgress(v) { p = v; if (reduce) draw(0); } };
+    return { burst, sprinkle, fling, setProgress(v) { p = v; if (reduce) draw(0, 0); } };
   })();
 
   let lastDust = 0;
@@ -296,7 +317,7 @@
   }
   env.addEventListener('click', openGate);
 
-  /* ---------- the gold veil over the date ---------- */
+  /* ---------- the date under a drift of leaves ---------- */
   (() => {
     const ticket = $('#ticket'), cv = $('#foil'), hint = $('#scratchHint');
     const ctx = cv.getContext('2d', { willReadFrequently: true });
@@ -310,27 +331,17 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const w = r.width, h = r.height;
       const g = ctx.createLinearGradient(0, 0, w, h);
-      [[0, '#A47B28'], [0.18, '#DDBD6C'], [0.36, '#FBF0C4'], [0.52, '#CFA850'], [0.7, '#A47B28'], [0.88, '#EBD594'], [1, '#B98F34']]
-        .forEach(([o, c]) => g.addColorStop(o, c));
+      g.addColorStop(0, '#5A1622'); g.addColorStop(.55, '#7A2A14'); g.addColorStop(1, '#4A1420');
       ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
-      // brushed grain
-      for (let i = 0; i < 900; i++) {
-        ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255,248,214,.16)' : 'rgba(110,80,20,.13)';
-        ctx.fillRect(Math.random() * w, Math.random() * h, 6 + Math.random() * 22, 0.6);
+      // a drift of leaves, small ones underneath, big ones on top
+      const n = Math.round(w * h / 300);
+      for (let i = 0; i < n; i++) {
+        const k = i / n;
+        ctx.shadowColor = 'rgba(30,5,0,.4)'; ctx.shadowBlur = 5; ctx.shadowOffsetY = 1.5;
+        drawLeaf(ctx, -8 + Math.random() * (w + 16), -8 + Math.random() * (h + 16), 30 + k * 26 + Math.random() * 10,
+          Math.random() * 6.2832, 1, TONES[i % TONES.length], 1, Math.random() > .38 ? 0 : 1);
       }
-      // girih lattice pressed into the foil
-      const s = 40, R = s / 2, ri = R * Math.cos(Math.PI / 4) / Math.cos(Math.PI / 8);
-      ctx.strokeStyle = 'rgba(110,80,20,.38)'; ctx.lineWidth = 0.9;
-      for (let cy = R - (s - (h % s)) / 2; cy < h + R; cy += s) {
-        for (let cx = R - (s - (w % s)) / 2; cx < w + R; cx += s) {
-          ctx.beginPath();
-          for (let k = 0; k < 16; k++) {
-            const a = Math.PI / 8 * k, rr = k % 2 ? ri : R;
-            ctx[k ? 'lineTo' : 'moveTo'](cx + rr * Math.sin(a), cy - rr * Math.cos(a));
-          }
-          ctx.closePath(); ctx.stroke();
-        }
-      }
+      ctx.shadowColor = 'transparent'; ctx.globalAlpha = 1;
     }
 
     function reveal() {
@@ -339,7 +350,8 @@
       ticket.classList.add('is-open');
       hint.textContent = text('d_hint');
       const r = ticket.getBoundingClientRect();
-      sky.burst(r.left + r.width / 2, r.top + r.height / 2, 70);
+      sky.burst(r.left + r.width / 2, r.top + r.height / 2, 30, true);
+      sky.burst(r.left + r.width / 2, r.top + r.height / 2, 30);
     }
 
     function clearedRatio() {
@@ -365,12 +377,12 @@
       down = true; started = true; [lx, ly] = pos(e);
       try { cv.setPointerCapture(e.pointerId); } catch (err) { /* ok */ }
       scratch(lx + 0.1, ly + 0.1);
-      sky.sprinkle(e.clientX, e.clientY);
+      sky.fling(e.clientX, e.clientY, 0, 0);
     });
     cv.addEventListener('pointermove', e => {
       if (!down) return;
-      const [x, y] = pos(e); scratch(x, y);
-      if (Math.random() > 0.5) sky.sprinkle(e.clientX, e.clientY);
+      const [x, y] = pos(e); const dx = x - lx, dy = y - ly; scratch(x, y);
+      if (Math.random() > 0.55) sky.fling(e.clientX, e.clientY, dx, dy);
     });
     const up = () => { down = false; };
     cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
