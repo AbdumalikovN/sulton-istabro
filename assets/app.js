@@ -162,29 +162,22 @@
   }
 
   /* ---------- autumn air: chinar leaves drifting down, gold dust on touch ---------- */
-  const LEAF = [[0,-.6],[.076,-.393],[.124,-.433],[.099,-.185],[.264,-.314],[.262,-.262],[.497,-.336],[.363,-.169],[.423,-.154],[.189,-.02],[.357,.044],[.313,.067],[.467,.179],[.283,.17],[.299,.217],[.094,.177],[0,.27],[-.094,.177],[-.299,.217],[-.283,.17],[-.467,.179],[-.313,.067],[-.357,.044],[-.189,-.02],[-.423,-.154],[-.363,-.169],[-.497,-.336],[-.262,-.262],[-.264,-.314],[-.099,-.185],[-.124,-.433],[-.076,-.393]];
-  const TONES = ['#B8501F', '#E08A2B', '#D2A23A', '#8E1F2F', '#C96A22', '#6F6B2C', '#A63A22'];
+  // Leaves are cut from an 1870s chromolithograph (L. Prang & Co., public domain)
+  const SPRITES = [1, 2, 3, 4, 5].map(i => { const im = new Image(); im.decoding = 'async'; im.src = `assets/art/leaf-${i}.webp`; return im; });
+  const spritesReady = Promise.all(SPRITES.map(im => new Promise(res => {
+    if (im.complete && im.naturalWidth) res(); else { im.onload = res; im.onerror = res; }
+  })));
+  const pickLeaf = () => Math.random() * SPRITES.length | 0;
 
-  // kind 0 — chinar, kind 1 — long leaf; centred on (x, y), s is the leaf's height
-  function drawLeaf(ctx, x, y, s, rot, flip, color, alpha, kind) {
+  // centred on (x, y); s is the leaf's longest side
+  function drawLeaf(ctx, x, y, s, rot, flip, alpha, kind) {
+    const im = SPRITES[kind];
+    if (!im || !im.naturalWidth) return;
+    const k = s / Math.max(im.naturalWidth, im.naturalHeight), w = im.naturalWidth * k, h = im.naturalHeight * k;
     ctx.save();
     ctx.translate(x, y); ctx.rotate(rot); ctx.scale(flip, 1);
-    ctx.globalAlpha = alpha; ctx.fillStyle = color;
-    ctx.beginPath();
-    if (kind === 0) {
-      for (let i = 0; i < LEAF.length; i++) ctx[i ? 'lineTo' : 'moveTo'](LEAF[i][0] * s, LEAF[i][1] * s);
-      ctx.closePath();
-    } else {
-      ctx.moveTo(0, -.6 * s);
-      ctx.bezierCurveTo(.22 * s, -.34 * s, .24 * s, .12 * s, 0, .5 * s);
-      ctx.bezierCurveTo(-.24 * s, .12 * s, -.22 * s, -.34 * s, 0, -.6 * s);
-    }
-    ctx.fill();
-    ctx.shadowColor = 'transparent';
-    ctx.strokeStyle = 'rgba(60,10,0,.3)'; ctx.lineWidth = Math.max(.6, s * .022); ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.moveTo(0, -.5 * s); ctx.lineTo(0, (kind ? .64 : .52) * s);
-    if (kind === 0) { ctx.moveTo(0, .27 * s); ctx.lineTo(.42 * s, -.28 * s); ctx.moveTo(0, .27 * s); ctx.lineTo(-.42 * s, -.28 * s); }
-    ctx.stroke();
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(im, -w / 2, -h / 2, w, h);
     ctx.restore();
   }
 
@@ -195,10 +188,10 @@
 
     const fresh = (anywhere) => ({
       x: Math.random() * w, y: anywhere ? Math.random() * h : -30 - Math.random() * 80,
-      s: 13 + Math.random() * 15, rot: Math.random() * 6.28, vr: (Math.random() - .5) * 1.1,
+      s: 18 + Math.random() * 20, rot: Math.random() * 6.28, vr: (Math.random() - .5) * 1.1,
       vy: 16 + Math.random() * 26, sway: .5 + Math.random() * .9, amp: 14 + Math.random() * 26,
       ph: Math.random() * 6.28, fl: .6 + Math.random() * 1.3,
-      color: TONES[Math.random() * TONES.length | 0], kind: Math.random() > .32 ? 0 : 1,
+      kind: pickLeaf(),
     });
 
     function size() {
@@ -218,7 +211,7 @@
         l.y += l.vy * dt; l.rot += l.vr * dt;
         if (l.y > h + 40) Object.assign(l, fresh(false));
         const x = l.x + Math.sin(t * l.sway + l.ph) * l.amp;
-        drawLeaf(ctx, x, l.y, l.s, l.rot, Math.cos(t * l.fl + l.ph) * .85 + .15, l.color, alpha, l.kind);
+        drawLeaf(ctx, x, l.y, l.s, l.rot, Math.cos(t * l.fl + l.ph) * .8 + .2, alpha, l.kind);
       }
       for (let i = bits.length - 1; i >= 0; i--) {
         const d = bits[i];
@@ -227,7 +220,7 @@
         d.x += d.vx; d.y += d.vy; d.vy += d.leaf ? .05 : .035; d.vx *= .985;
         if (d.leaf) {
           d.rot += d.vr;
-          drawLeaf(ctx, d.x, d.y, d.r, d.rot, Math.cos(d.rot * 1.7), d.color, Math.min(1, d.life * 1.6), d.kind);
+          drawLeaf(ctx, d.x, d.y, d.r, d.rot, Math.cos(d.rot * 1.7), Math.min(1, d.life * 1.6), d.kind);
         } else {
           ctx.fillStyle = `rgba(248,${205 + (d.tone * 30 | 0)},${120 + (d.tone * 60 | 0)},${d.life})`;
           ctx.beginPath(); ctx.arc(d.x, d.y, d.r * (.5 + d.life * .5), 0, 6.2832); ctx.fill();
@@ -249,8 +242,8 @@
         const ang = Math.random() * 6.2832, v = .6 + Math.random() * (asLeaves ? 4.4 : 3.2);
         bits.push({
           x, y, vx: Math.cos(ang) * v, vy: Math.sin(ang) * v - 1.4, life: 1, ttl: .9 + Math.random() * 1.2, tone: Math.random(),
-          leaf: asLeaves, r: asLeaves ? 12 + Math.random() * 16 : .8 + Math.random() * 1.9,
-          rot: Math.random() * 6.28, vr: (Math.random() - .5) * .3, color: TONES[Math.random() * TONES.length | 0], kind: Math.random() > .4 ? 0 : 1,
+          leaf: asLeaves, r: asLeaves ? 18 + Math.random() * 22 : .8 + Math.random() * 1.9,
+          rot: Math.random() * 6.28, vr: (Math.random() - .5) * .3, kind: pickLeaf(),
         });
       }
     }
@@ -262,12 +255,12 @@
       if (reduce || bits.length > 90) return;
       bits.push({
         x, y, vx: dx * .12 + (Math.random() - .5) * 2.4, vy: dy * .12 - 1 - Math.random() * 1.6, life: 1, ttl: .8 + Math.random() * .7, tone: 0,
-        leaf: true, r: 14 + Math.random() * 14, rot: Math.random() * 6.28, vr: (Math.random() - .5) * .34,
-        color: TONES[Math.random() * TONES.length | 0], kind: Math.random() > .4 ? 0 : 1,
+        leaf: true, r: 20 + Math.random() * 20, rot: Math.random() * 6.28, vr: (Math.random() - .5) * .34, kind: pickLeaf(),
       });
     }
 
     size();
+    spritesReady.then(() => draw(0, 0));
     let rz;
     addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(size, 150); });
     if (!reduce) requestAnimationFrame(loop);
@@ -334,12 +327,12 @@
       g.addColorStop(0, '#5A1622'); g.addColorStop(.55, '#7A2A14'); g.addColorStop(1, '#4A1420');
       ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
       // a drift of leaves, small ones underneath, big ones on top
-      const n = Math.round(w * h / 300);
+      const n = Math.round(w * h / 230);
+      ctx.shadowColor = 'rgba(30,5,0,.45)'; ctx.shadowBlur = 5; ctx.shadowOffsetY = 1.5;
       for (let i = 0; i < n; i++) {
         const k = i / n;
-        ctx.shadowColor = 'rgba(30,5,0,.4)'; ctx.shadowBlur = 5; ctx.shadowOffsetY = 1.5;
-        drawLeaf(ctx, -8 + Math.random() * (w + 16), -8 + Math.random() * (h + 16), 30 + k * 26 + Math.random() * 10,
-          Math.random() * 6.2832, 1, TONES[i % TONES.length], 1, Math.random() > .38 ? 0 : 1);
+        drawLeaf(ctx, -10 + Math.random() * (w + 20), -10 + Math.random() * (h + 20), 44 + k * 34 + Math.random() * 14,
+          Math.random() * 6.2832, Math.random() > .5 ? 1 : -1, 1, i % SPRITES.length);
       }
       ctx.shadowColor = 'transparent'; ctx.globalAlpha = 1;
     }
@@ -389,6 +382,7 @@
     $('#foilOpen').addEventListener('click', reveal);
 
     paint();
+    spritesReady.then(() => { if (!started && !revealed) paint(); });
     addEventListener('resize', () => { if (!started && !revealed) paint(); });
   })();
 

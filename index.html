@@ -38,98 +38,9 @@
     <radialGradient id="g-moon" cx=".3" cy=".3" r=".9">
       <stop offset="0" stop-color="#FFF3CF"/><stop offset="1" stop-color="#F2C878"/>
     </radialGradient>
-    <linearGradient id="g-niche" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0" stop-color="#F8D27C"/><stop offset=".55" stop-color="#E0A552" stop-opacity=".75"/><stop offset="1" stop-color="#C98548" stop-opacity=".25"/>
-    </linearGradient>
     <symbol id="moon" viewBox="0 0 100 100">
       <mask id="m-crescent"><rect width="100" height="100" fill="#fff"/><circle cx="64" cy="40" r="40" fill="#000"/></mask>
       <circle cx="50" cy="50" r="42" fill="url(#g-moon)" mask="url(#m-crescent)"/>
-    </symbol>
-    <symbol id="chinar" viewBox="-56 -64 112 124">
-      <polygon fill="currentColor" points="0.0,-60.0 7.6,-39.3 12.4,-43.3 9.9,-18.5 26.4,-31.4 26.2,-26.2 49.7,-33.6 36.3,-16.9 42.3,-15.4 18.9,-2.0 35.7,4.4 31.3,6.7 46.7,17.9 28.3,17.0 29.9,21.7 9.4,17.7 0.0,27.0 -9.4,17.7 -29.9,21.7 -28.3,17.0 -46.7,17.9 -31.3,6.7 -35.7,4.4 -18.9,-2.0 -42.3,-15.4 -36.3,-16.9 -49.7,-33.6 -26.2,-26.2 -26.4,-31.4 -9.9,-18.5 -12.4,-43.3 -7.6,-39.3"/>
-      <path d="M0 27V56" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-      <path d="M0 27L0 -52M0 27L43.1 -29.1M0 27L39.2 15.1M0 27L-43.1 -29.1M0 27L-39.2 15.1" fill="none" stroke="#3A0A00" stroke-opacity=".3" stroke-width="1.2"/>
-    </symbol>
-    <symbol id="chinar-line" viewBox="-56 -64 112 124">
-      <polygon fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" points="0.0,-60.0 7.6,-39.3 12.4,-43.3 9.9,-18.5 26.4,-31.4 26.2,-26.2 49.7,-33.6 36.3,-16.9 42.3,-15.4 18.9,-2.0 35.7,4.4 31.3,6.7 46.7,17.9 28.3,17.0 29.9,21.7 9.4,17.7 0.0,27.0 -9.4,17.7 -29.9,21.7 -28.3,17.0 -46.7,17.9 -31.3,6.7 -35.7,4.4 -18.9,-2.0 -42.3,-15.4 -36.3,-16.9 -49.7,-33.6 -26.2,-26.2 -26.4,-31.4 -9.9,-18.5 -12.4,-43.3 -7.6,-39.3"/>
-      <path d="M0 27V56M0 27L0 -52M0 27L43.1 -29.1M0 27L39.2 15.1M0 27L-43.1 -29.1M0 27L-39.2 15.1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="leaf" viewBox="-28 -64 56 132">
-      <path fill="currentColor" d="M0 -60C22 -34 24 12 0 50C-24 12 -22 -34 0 -60Z"/>
-      <path d="M0 -52V64M0 -30L12 -40M0 -30L-12 -40M0 -10L16 -22M0 -10L-16 -22M0 10L15 -2M0 10L-15 -2M0 28L10 18M0 28L-10 18" fill="none" stroke="#3A0A00" stroke-opacity=".3" stroke-width="1.2" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="cluster" viewBox="0 0 240 190">
-      <use href="#leaf" x="-28" y="-64" width="56" height="132" transform="translate(60 128) rotate(-108) scale(.8)" style="color:#6F6B2C"/>
-      <use href="#leaf" x="-28" y="-64" width="56" height="132" transform="translate(178 126) rotate(72) scale(.86)" style="color:#D2A23A"/>
-      <use href="#chinar" x="-56" y="-64" width="112" height="124" transform="translate(150 70) rotate(26) scale(.82)" style="color:#E08A2B"/>
-      <use href="#chinar" x="-56" y="-64" width="112" height="124" transform="translate(84 84) rotate(-24) scale(1.08)" style="color:#B8501F"/>
-      <use href="#chinar" x="-56" y="-64" width="112" height="124" transform="translate(132 132) rotate(8) scale(.56)" style="color:#8E1F2F"/>
-      <g fill="#8E1F2F"><circle cx="100" cy="146" r="6"/><circle cx="112" cy="156" r="6"/><circle cx="97" cy="160" r="5.4"/></g>
-      <g fill="#F6D7C0" fill-opacity=".55"><circle cx="98" cy="144" r="1.6"/><circle cx="110" cy="154" r="1.6"/><circle cx="95" cy="158" r="1.4"/></g>
-    </symbol>
-    <symbol id="khatam" viewBox="0 0 24 24">
-      <polygon points="12.00,2.00 14.93,4.93 19.07,4.93 19.07,9.07 22.00,12.00 19.07,14.93 19.07,19.07 14.93,19.07 12.00,22.00 9.07,19.07 4.93,19.07 4.93,14.93 2.00,12.00 4.93,9.07 4.93,4.93 9.07,4.93"/>
-    </symbol>
-    <symbol id="skyline" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax slice">
-      <g class="sk-body">
-        <rect x="0" y="200" width="1440" height="20"/>
-        <!-- houses -->
-        <path d="M0 220V178h58v-12h62v16h72v-10h36v48z"/>
-        <path d="M1232 220v-44h58v-10h62v16h88v38z"/>
-        <!-- far-left dome + minaret -->
-        <rect x="272" y="150" width="56" height="70"/>
-        <path d="M268 150c-4-24 18-34 32-48 14 14 36 24 32 48z"/>
-        <rect x="299" y="92" width="2" height="12"/>
-        <rect x="225" y="80" width="10" height="140"/><rect x="222" y="92" width="16" height="4"/>
-        <path d="M225 80c0-8 5-10 5-18 0 8 5 10 5 18z"/>
-        <!-- far-right dome + minaret -->
-        <rect x="1100" y="146" width="60" height="74"/>
-        <path d="M1096 146c-4-26 18-36 34-52 16 16 38 26 34 52z"/>
-        <rect x="1129" y="84" width="2" height="12"/>
-        <rect x="1205" y="70" width="10" height="150"/><rect x="1202" y="84" width="16" height="4"/>
-        <path d="M1205 70c0-8 5-10 5-18 0 8 5 10 5 18z"/>
-        <!-- wings -->
-        <rect x="440" y="162" width="226" height="58"/><rect x="774" y="162" width="232" height="58"/>
-        <!-- left dome -->
-        <rect x="500" y="128" width="80" height="92"/>
-        <path d="M496 128c-6-36 24-50 44-72 20 22 50 36 44 72z"/>
-        <rect x="539" y="44" width="2" height="14"/>
-        <!-- right dome -->
-        <rect x="852" y="120" width="96" height="100"/>
-        <path d="M846 120c-8-42 30-58 54-84 24 26 62 42 54 84z"/>
-        <rect x="899" y="22" width="2" height="16"/>
-        <!-- portal + minarets -->
-        <rect x="664" y="84" width="112" height="136"/><rect x="660" y="78" width="120" height="8"/>
-        <rect x="633" y="52" width="14" height="168"/><rect x="630" y="66" width="20" height="5"/>
-        <path d="M633 52c0-10 7-12 7-20 0 8 7 10 7 20z"/>
-        <rect x="793" y="52" width="14" height="168"/><rect x="790" y="66" width="20" height="5"/>
-        <path d="M793 52c0-10 7-12 7-20 0 8 7 10 7 20z"/>
-      </g>
-      <!-- autumn trees -->
-      <g>
-        <ellipse class="sk-t1" cx="420" cy="160" rx="10" ry="46"/><ellipse class="sk-t2" cx="439" cy="172" rx="9" ry="36"/>
-        <ellipse class="sk-t3" cx="1030" cy="158" rx="10" ry="48"/><ellipse class="sk-t2" cx="1050" cy="172" rx="9" ry="36"/>
-        <ellipse class="sk-t2" cx="160" cy="172" rx="9" ry="36"/><ellipse class="sk-t1" cx="1322" cy="166" rx="10" ry="42"/>
-        <circle class="sk-t2" cx="372" cy="190" r="23"/><circle class="sk-t1" cx="398" cy="198" r="15"/>
-        <circle class="sk-t1" cx="1084" cy="191" r="21"/><circle class="sk-t4" cx="1062" cy="199" r="14"/>
-        <circle class="sk-t3" cx="96" cy="193" r="19"/><circle class="sk-t2" cx="1396" cy="193" r="19"/>
-        <rect class="sk-body" x="0" y="210" width="1440" height="10"/>
-      </g>
-      <path class="sk-niche" fill="url(#g-niche)" d="M692 220v-78c0-21 17-31 28-40 11 9 28 19 28 40v78z"/>
-      <g class="sk-lights">
-        <g>
-          <rect x="452" y="178" width="7" height="13" rx="3.5"/><rect x="474" y="178" width="7" height="13" rx="3.5"/>
-          <rect x="596" y="178" width="7" height="13" rx="3.5"/><rect x="616" y="178" width="7" height="13" rx="3.5"/>
-          <rect x="518" y="150" width="6" height="12" rx="3"/><rect x="537" y="150" width="6" height="12" rx="3"/><rect x="556" y="150" width="6" height="12" rx="3"/>
-          <rect x="816" y="178" width="7" height="13" rx="3.5"/><rect x="836" y="178" width="7" height="13" rx="3.5"/>
-          <rect x="962" y="178" width="7" height="13" rx="3.5"/><rect x="984" y="178" width="7" height="13" rx="3.5"/>
-          <rect x="874" y="146" width="6" height="12" rx="3"/><rect x="897" y="146" width="6" height="12" rx="3"/><rect x="920" y="146" width="6" height="12" rx="3"/>
-          <rect x="292" y="170" width="5" height="10" rx="2.5"/><rect x="304" y="170" width="5" height="10" rx="2.5"/>
-          <rect x="1122" y="168" width="5" height="10" rx="2.5"/><rect x="1134" y="168" width="5" height="10" rx="2.5"/>
-          <rect x="30" y="190" width="6" height="8"/><rect x="140" y="192" width="6" height="8"/>
-          <rect x="1262" y="190" width="6" height="8"/><rect x="1376" y="194" width="6" height="8"/>
-        </g>
-      </g>
     </symbol>
   </defs>
 </svg>
@@ -154,6 +65,8 @@
   <p class="gate__dear" data-i18n="gate_dear">Азиз меҳмонимиз</p>
 
   <div class="env" id="env">
+    <img class="env__leaves env__leaves--a" src="assets/art/bouquet.webp" width="760" height="1103" alt="">
+    <img class="env__leaves env__leaves--b" src="assets/art/bouquet.webp" width="760" height="1103" alt="">
     <div class="env__back"></div>
     <div class="env__card">
       <span class="script foil" data-i18n="groom">Султонбек</span>
@@ -200,7 +113,6 @@
   <!-- 1 · Names under the evening sky -->
   <section class="hero">
     <div class="hero__inner">
-      <svg class="hero__star" aria-hidden="true"><use href="#chinar-line"/></svg>
       <h1 class="hero__names">
         <span class="script foil" data-i18n="groom">Султонбек</span>
         <span class="hero__va" data-i18n="va">ва</span>
@@ -210,7 +122,7 @@
       <p class="hero__when"><span data-i18n="hero_date">31 октябрь 2026</span><br><span data-i18n="hero_time">шанба, соат 18:00</span></p>
     </div>
     <svg class="moon hero__moon" aria-hidden="true"><use href="#moon"/></svg>
-    <svg class="skyline" aria-hidden="true"><use href="#skyline"/></svg>
+    <img class="vista" src="assets/art/sherdor.webp" width="1500" height="903" alt="" decoding="async">
     <a class="hero__scroll" href="#letter"><span data-i18n="scroll">Пастга суринг</span>
       <svg viewBox="0 0 24 12" aria-hidden="true"><path d="M3 2l9 8 9-8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
@@ -223,19 +135,20 @@
         <path class="sheet__paper" d="M0 151V120C0 70 110 44 200 2c90 42 200 68 200 118v31z"/>
         <path class="sheet__rule" d="M10 151v-30c0-42 104-67 190-107 86 40 190 65 190 107v30"/>
         <g class="sheet__orn" transform="translate(200 92)">
-          <use href="#chinar-line" x="-22" y="-26" width="44" height="49"/>
-          <path d="M-32 0h-50M32 0h50"/>
+          <image href="assets/art/leaf-3.webp" x="-21" y="-23" width="42" height="46"/>
+          <path d="M-34 0h-50M34 0h50"/>
         </g>
       </svg>
-      <svg class="leaves sheet__leaves--top" viewBox="0 0 240 190" aria-hidden="true"><use href="#cluster"/></svg>
-      <svg class="leaves sheet__leaves--bottom" viewBox="0 0 240 190" aria-hidden="true"><use href="#cluster"/></svg>
+      <img class="deco sheet__deco--top" src="assets/art/bouquet.webp" width="760" height="1103" alt="" loading="lazy">
+      <img class="deco sheet__deco--bottom" src="assets/art/bouquet.webp" width="760" height="1103" alt="" loading="lazy">
+      <img class="deco sheet__deco--anor" src="assets/art/anor.webp" width="520" height="506" alt="" loading="lazy">
       <div class="sheet__body">
         <p class="sheet__salom" data-i18n="l_salom">Ассалому алайкум!</p>
         <p class="sheet__dear" data-i18n="l_dear">Ҳурматли меҳмонимиз!</p>
         <p class="sheet__text" data-i18n="l_p1">Сизни азиз фарзандларимиз</p>
         <p class="sheet__names"><span class="script foil foil--dark" data-i18n="l_names">Султонбек ва Истабро</span></p>
         <p class="sheet__text" data-i18n="l_p2">ларнинг никоҳ тўйлари муносабати билан 2026 йил 31 октябрь куни соат 18:00 да бўлиб ўтадиган «Висол оқшоми»га таклиф этамиз.</p>
-        <svg class="sheet__div" viewBox="0 0 120 26" aria-hidden="true"><path d="M0 13h42M78 13h42"/><use href="#chinar-line" x="48" y="0" width="24" height="26"/></svg>
+        <svg class="sheet__div" viewBox="0 0 120 26" aria-hidden="true"><path d="M0 13h42M78 13h42"/><image href="assets/art/leaf-1.webp" x="48" y="0" width="24" height="26"/></svg>
         <p class="sheet__sign" data-i18n="l_sign1">Ҳурмат ва эҳтиром ила</p>
         <p class="sheet__family" data-i18n="l_sign2">АБДУМАЛИК ХОЖИ ота ўғли АШРАФ СОДИКОВлар оиласи</p>
       </div>
@@ -271,7 +184,8 @@
     <div class="col">
       <h2 class="title" data-i18n="v_title">Вақт ва манзил</h2>
       <div class="tile">
-        <svg class="leaves tile__leaves" viewBox="0 0 240 190" aria-hidden="true"><use href="#cluster"/></svg>
+        <img class="deco tile__deco--anor" src="assets/art/anor.webp" width="520" height="506" alt="" loading="lazy">
+        <img class="deco tile__deco--half" src="assets/art/anor-half.webp" width="300" height="350" alt="" loading="lazy">
         <div class="tile__band" aria-hidden="true"></div>
         <p class="tile__name" data-i18n="v_name">«PRIMIER HALL» ресторани</p>
         <p class="tile__addr" data-i18n="v_addr">Қибрай тумани, Маданият массив</p>
@@ -305,7 +219,7 @@
       <a class="wait__top" href="#top" data-i18n="c_top">Бошига қайтиш</a>
     </div>
     <svg class="moon wait__moon" aria-hidden="true"><use href="#moon"/></svg>
-    <svg class="skyline skyline--night" aria-hidden="true"><use href="#skyline"/></svg>
+    <img class="vista vista--late" src="assets/art/shohizinda.webp" width="1500" height="912" alt="" loading="lazy" decoding="async">
   </section>
 </main>
 
