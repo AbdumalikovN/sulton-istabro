@@ -29,7 +29,7 @@
       l_p2: 'ларнинг никоҳ тўйлари муносабати билан 2026 йил 31 октябрь куни соат 18:00 да бўлиб ўтадиган «Висол оқшоми»га таклиф этамиз.',
       l_sign1: 'Ҳурмат ва эҳтиром ила',
       l_sign2: 'АБДУМАЛИК ХОЖИ ота ўғли АШРАФ СОДИКОВлар оиласи',
-      d_title: 'Тўй куни', d_hint: 'Япроқларни бармоғингиз билан суринг', d_done: 'Ана шу кун!', d_open: 'Очиш',
+      d_title: 'Тўй куни', d_hint: 'Япроқларни бармоғингиз билан суриб, санани очинг', d_done: 'Ана шу кун!', d_open: 'Очиш',
       d_weekday: 'шанба', d_month: 'октябрь 2026', d_time: 'соат 18:00',
       cal_title: 'Октябрь 2026', wd: ['Ду', 'Се', 'Чор', 'Пай', 'Жу', 'Шан', 'Як'],
       v_title: 'Вақт ва манзил', v_name: '«PRIMIER HALL» ресторани', v_addr: 'Қибрай тумани, Маданият массив',
@@ -58,7 +58,7 @@
       l_p2: 'larning nikoh to‘ylari munosabati bilan 2026-yil 31-oktabr kuni soat 18:00 da bo‘lib o‘tadigan «Visol oqshomi»ga taklif etamiz.',
       l_sign1: 'Hurmat va ehtirom ila',
       l_sign2: 'ABDUMALIK HOJI ota o‘g‘li ASHRAF SODIKOVlar oilasi',
-      d_title: 'To‘y kuni', d_hint: 'Yaproqlarni barmog‘ingiz bilan suring', d_done: 'Ana shu kun!', d_open: 'Ochish',
+      d_title: 'To‘y kuni', d_hint: 'Yaproqlarni barmog‘ingiz bilan surib, sanani oching', d_done: 'Ana shu kun!', d_open: 'Ochish',
       d_weekday: 'shanba', d_month: 'oktabr 2026', d_time: 'soat 18:00',
       cal_title: 'Oktabr 2026', wd: ['Du', 'Se', 'Chor', 'Pay', 'Ju', 'Shan', 'Yak'],
       v_title: 'Vaqt va manzil', v_name: '«PRIMIER HALL» restorani', v_addr: 'Qibray tumani, Madaniyat massivi',
@@ -87,7 +87,7 @@
       l_p2: '«Висол оқшоми» состоится 31 октября 2026 года в 18:00.',
       l_sign1: 'С уважением и почтением,',
       l_sign2: 'семья АШРАФА СОДИКОВА, сына АБДУМАЛИКА ХОЖИ ота',
-      d_title: 'День свадьбы', d_hint: 'Смахните листья пальцем', d_done: 'Вот этот день!', d_open: 'Открыть',
+      d_title: 'День свадьбы', d_hint: 'Смахните листья пальцем — под ними дата', d_done: 'Вот этот день!', d_open: 'Открыть',
       d_weekday: 'суббота', d_month: 'октября 2026', d_time: 'в 18:00',
       cal_title: 'Октябрь 2026', wd: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
       v_title: 'Время и место', v_name: 'Ресторан «PRIMIER HALL»', v_addr: 'Кибрайский район, массив Маданият',
@@ -312,13 +312,15 @@
 
   /* ---------- the date under a drift of leaves ---------- */
   (() => {
-    const ticket = $('#ticket'), cv = $('#foil'), hint = $('#scratchHint');
+    const ticket = $('#ticket'), cv = $('#foil'), hint = $('#scratchHint'), hand = $('#hand');
     const ctx = cv.getContext('2d', { willReadFrequently: true });
-    let down = false, lx = 0, ly = 0, started = false, lastCheck = 0;
+    let down = false, lx = 0, ly = 0, started = false, lastCheck = 0, paintedW = 0;
+    let inView = false, demoRuns = 0, demoTimer = 0, demoBusy = false;
 
     function paint() {
       const r = cv.getBoundingClientRect();
       if (!r.width) return;
+      paintedW = r.width; demoRuns = 0;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -366,8 +368,44 @@
     }
     const pos = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
 
+    // The hint: a hand sweeps across the leaves, and on its first pass really clears a strip
+    function demo() {
+      clearTimeout(demoTimer);
+      if (started || revealed || reduce || !inView || demoBusy) return;
+      const r = cv.getBoundingClientRect(), w = r.width, h = r.height;
+      const pts = [[.86, .9], [.2, .74], [.8, .62]];
+      const clears = demoRuns++ === 0, t0 = performance.now(), T = 1900;
+      let px = null, py = null;
+      demoBusy = true; hand.style.opacity = 1;
+      (function step(now) {
+        if (started || revealed) { hand.style.opacity = 0; demoBusy = false; return; }
+        const t = Math.min(1, Math.max(0, (now - t0) / T));
+        const seg = t < .55 ? 0 : 1, k = seg ? (t - .55) / .45 : t / .55;
+        const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        const x = (pts[seg][0] + (pts[seg + 1][0] - pts[seg][0]) * e) * w;
+        const y = (pts[seg][1] + (pts[seg + 1][1] - pts[seg][1]) * e) * h;
+        hand.style.transform = `translate(${(x - 19).toFixed(1)}px,${(y - 3).toFixed(1)}px) rotate(-14deg)`;
+        if (clears && px !== null) {
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.lineWidth = 28; ctx.lineCap = 'round';
+          ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(x, y); ctx.stroke();
+          ctx.globalCompositeOperation = 'source-over';
+          if (Math.random() > .62) sky.fling(r.left + x, r.top + y, x - px, y - py);
+        }
+        px = x; py = y;
+        if (t < 1) requestAnimationFrame(step);
+        else { hand.style.opacity = 0; demoBusy = false; demoTimer = setTimeout(demo, 2400); }
+      })(t0);
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(es => {
+        inView = es[0].isIntersecting;
+        if (inView) demoTimer = setTimeout(demo, 600); else clearTimeout(demoTimer);
+      }, { threshold: .8 }).observe(ticket);
+    }
+
     cv.addEventListener('pointerdown', e => {
-      down = true; started = true; [lx, ly] = pos(e);
+      down = true; started = true; hand.style.opacity = 0; [lx, ly] = pos(e);
       try { cv.setPointerCapture(e.pointerId); } catch (err) { /* ok */ }
       scratch(lx + 0.1, ly + 0.1);
       sky.fling(e.clientX, e.clientY, 0, 0);
@@ -383,7 +421,9 @@
 
     paint();
     spritesReady.then(() => { if (!started && !revealed) paint(); });
-    addEventListener('resize', () => { if (!started && !revealed) paint(); });
+    addEventListener('resize', () => {
+      if (!started && !revealed && !demoBusy && Math.abs(cv.getBoundingClientRect().width - paintedW) > 1) paint();
+    });
   })();
 
   /* ---------- bottom sheet: maps and calendars ---------- */

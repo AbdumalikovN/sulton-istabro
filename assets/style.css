@@ -74,7 +74,7 @@ html[lang="uz-Latn"] .sheet__names{margin:.3em 0 -.4em}
 .moon{display:block;aspect-ratio:1;filter:drop-shadow(0 0 14px rgba(246,231,176,.55))}
 .sky__moon{
   display:none;position:fixed;z-index:55;pointer-events:none;top:0;right:calc(50% - 400px);width:78px;
-  transform:translateY(calc((60 - 50 * var(--p)) * 1vh)) rotate(-20deg);will-change:transform;
+  transform:translateY(calc((24 - 14 * var(--p)) * 1vh)) rotate(-20deg);will-change:transform;
 }
 .sky__dusk{display:none}
 
@@ -107,14 +107,15 @@ html[lang="uz-Latn"] .sheet__names{margin:.3em 0 -.4em}
 .gate__hint{font-style:italic;font-size:1rem;color:var(--paper)}
 
 .env{
-  position:relative;width:min(84vw,360px);aspect-ratio:3/2;
+  position:relative;width:min(78vw,360px);aspect-ratio:3/2;
   margin:clamp(40px,9vh,84px) 0 clamp(36px,7vh,64px);
   perspective:1100px;cursor:pointer;
   filter:drop-shadow(0 24px 26px rgba(20,6,6,.5));
 }
 .env__leaves{position:absolute;z-index:0;display:block;height:auto;pointer-events:none}
-.env__leaves--a{width:56%;left:-19%;bottom:-36%;transform:rotate(-132deg)}
-.env__leaves--b{width:48%;right:-15%;top:-40%;transform:rotate(46deg)}
+.env__leaves--a{width:52%;left:-17%;bottom:-36%;transform:rotate(-130deg)}
+.env__leaves--b{width:34%;right:-9%;top:-46%;transform:rotate(38deg)}
+.env__leaves--c{width:46%;right:-20%;top:-22%;transform:rotate(78deg)}
 .env__back{
   position:absolute;inset:0;border-radius:5px;
   background:var(--girih) 50% 0/30px 30px,linear-gradient(180deg,#8A2633,#5A1622);
@@ -179,10 +180,10 @@ main{position:relative;z-index:1}
 
 /* ---------- hero ---------- */
 .hero{
-  --vista:clamp(400px,min(133vw,80svh),980px);
+  --vista:clamp(520px,min(190vw,120svh),1700px);
   position:relative;isolation:isolate;overflow:hidden;min-height:100vh;min-height:100svh;
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-  padding:84px 16px calc(var(--vista) * .62 + 6px);
+  padding:84px 16px calc(var(--vista) * .385);
 }
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--dusk)}
 .hero__names{margin:0;font-weight:400;display:flex;flex-direction:column;align-items:center;line-height:1}
@@ -198,24 +199,22 @@ main{position:relative;z-index:1}
 .hero__scroll svg{width:22px;height:11px;animation:nudge 2.2s ease-in-out infinite}
 @keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
-/* Vereshchagin's Samarkand, lifted off its daytime sky and set against the autumn sunset */
+/* a border of roses and chrysanthemums from Prang's chromolithographs, standing in the sunset */
 .vista{
   position:absolute;left:50%;bottom:0;z-index:1;display:block;max-width:none;height:auto;pointer-events:none;
-  width:var(--vista);transform:translateX(-54%);
-  filter:sepia(.16) saturate(1.06) brightness(.95);
+  width:var(--vista);transform:translateX(-50%);
 }
 .hero::after,.wait::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:130px;z-index:1;pointer-events:none;
-  background:linear-gradient(to top,var(--ground) 4%,rgba(31,9,13,0) 100%);
+  content:"";position:absolute;left:0;right:0;bottom:0;height:80px;z-index:1;pointer-events:none;
+  background:linear-gradient(to top,var(--ground) 6%,rgba(31,9,13,0) 100%);
 }
-.vista--late{transform:translateX(-50%);filter:sepia(.3) saturate(.95) brightness(.7) contrast(1.05)}
+.vista--late{transform:translateX(-50%) scaleX(-1);filter:brightness(.82) saturate(.95)}
 @media (min-width:700px){
-  .vista{transform:translateX(-50%);
-    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%);
-    mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%)}
+  .vista{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%)}
 }
 .hero__moon{position:absolute;z-index:0;right:11%;top:clamp(58px,10vh,104px);width:44px;transform:rotate(-20deg)}
-.wait__moon{position:absolute;right:9%;bottom:calc(var(--vista) * .66);width:38px;transform:rotate(-20deg)}
+.wait__moon{position:absolute;right:9%;bottom:calc(var(--vista) * .4);width:38px;transform:rotate(-20deg)}
 
 body.is-open .hero__inner > *,
 body.is-open .hero__names > *{animation:arrive 1.5s cubic-bezier(.2,.7,.2,1) both}
@@ -236,7 +235,7 @@ body.is-open .hero__when{animation-delay:1.45s}
 .sheet__rule{fill:none;stroke:var(--gold);stroke-width:1.2}
 .sheet__orn path{fill:none;stroke:var(--gold);stroke-width:1.1}
 .deco{position:absolute;z-index:3;display:block;height:auto;pointer-events:none;filter:drop-shadow(0 8px 10px rgba(16,4,6,.38))}
-.sheet__deco--top{width:30%;right:-9%;top:-3.5%;transform:rotate(40deg)}
+.sheet__deco--top{width:34%;right:-11%;top:-2.5%;transform:rotate(18deg)}
 .sheet__deco--bottom{width:38%;left:-13%;bottom:-92px;transform:rotate(-128deg)}
 .sheet__deco--anor{width:23%;left:8%;bottom:-52px;transform:rotate(-14deg)}
 .tile__deco--anor{width:29%;right:-5%;top:-40px;transform:rotate(16deg)}
@@ -262,12 +261,27 @@ body.is-open .hero__when{animation-delay:1.45s}
 
 /* ---------- the day ---------- */
 .day{padding:72px 20px 76px}
-.day__hint{margin:.5em 0 22px;font-style:italic;color:var(--soft);transition:opacity .4s}
-.ticket{
-  position:relative;width:min(100%,318px);aspect-ratio:16/10;margin:0 auto;border-radius:3px;overflow:hidden;
-  background:var(--grain),var(--paper);color:var(--ink);
-  box-shadow:0 20px 40px rgba(16,4,6,.5);
+.day__hint{text-wrap:balance;margin:.5em 0 26px;font-style:italic;color:var(--soft);transition:opacity .4s}
+.frame{
+  position:relative;width:min(100%,344px);margin:0 auto;padding:11px;border-radius:7px;
+  background:var(--foil);background-size:220% 100%;background-position:calc(var(--shine) * 1%) 0;
+  box-shadow:0 24px 46px rgba(16,4,6,.55),inset 0 0 0 1px rgba(255,246,210,.75),inset 0 0 0 4px rgba(120,70,14,.5);
 }
+.frame::before{content:"";position:absolute;inset:6px;border:1px solid rgba(86,46,8,.6);border-radius:4px;pointer-events:none}
+.frame__deco--a{width:34%;left:-13%;bottom:-17%;transform:rotate(-124deg)}
+.frame__deco--b{width:30%;right:-12%;top:-15%;transform:rotate(22deg)}
+.ticket{
+  position:relative;width:100%;aspect-ratio:16/10;border-radius:2px;overflow:hidden;
+  background:var(--grain),var(--paper);color:var(--ink);
+  box-shadow:0 0 0 1px rgba(60,30,6,.7),inset 0 2px 8px rgba(16,4,6,.25);
+}
+.ticket__hand{
+  position:absolute;left:0;top:0;z-index:4;width:44px;height:44px;pointer-events:none;opacity:0;
+  fill:#FFF8E7;stroke:#3B1A12;stroke-width:12;stroke-linejoin:round;paint-order:stroke;
+  transform-origin:19px 3px;transition:opacity .35s ease;
+  filter:drop-shadow(0 3px 5px rgba(16,4,6,.55));
+}
+.ticket.is-open .ticket__hand{display:none}
 .ticket__face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2}
 .ticket__face::before{content:"";position:absolute;inset:7px;border:1px solid var(--gold);pointer-events:none}
 .ticket__wd{font-style:italic;font-weight:500;font-size:1.1rem;color:var(--rust)}
@@ -328,7 +342,7 @@ body.is-open .hero__when{animation-delay:1.45s}
 .link svg{width:18px;height:18px;flex:none}
 
 /* ---------- until then ---------- */
-.wait{--vista:clamp(400px,min(133vw,80svh),980px);position:relative;isolation:isolate;overflow:hidden;padding:72px 20px calc(var(--vista) * .6 + 10px);text-align:center}
+.wait{--vista:clamp(520px,min(190vw,120svh),1700px);position:relative;isolation:isolate;overflow:hidden;padding:72px 20px calc(var(--vista) * .39);text-align:center}
 .wait::before{content:"";position:absolute;inset:auto 0 0 0;height:min(70%,520px);z-index:-1;
   background:linear-gradient(to top,rgba(232,136,50,.62) 0%,rgba(184,80,31,.4) 26%,rgba(112,30,36,.18) 60%,transparent 100%)}
 .wait__label{font-style:italic;font-size:1.2rem;color:var(--soft)}
