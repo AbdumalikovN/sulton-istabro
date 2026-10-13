@@ -147,7 +147,8 @@ html[lang="uz-Latn"] .sheet__names{margin:.3em 0 -.4em}
   -webkit-backface-visibility:hidden;backface-visibility:hidden;
 }
 .env__flap-out{background:var(--grain),linear-gradient(180deg,#FBF5E6 0%,#EDE2C8 100%)}
-.env__flap-in{transform:rotateX(180deg);background:var(--girih) 50% 0/30px 30px,linear-gradient(0deg,#8A2633,#6E1E2A)}
+/* the inner face is itself flipped to face backwards, so its triangle is drawn upside down to end up apex-first */
+.env__flap-in{clip-path:polygon(0 100%,100% 100%,50% 0);transform:rotateX(180deg);background:var(--girih) 50% 0/30px 30px,linear-gradient(0deg,#8A2633,#6E1E2A)}
 
 .seal{
   position:absolute;left:50%;top:58%;z-index:5;width:27%;aspect-ratio:1;
