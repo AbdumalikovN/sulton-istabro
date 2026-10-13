@@ -306,7 +306,7 @@
       gate.classList.add('is-gone');
       setTimeout(() => { gate.hidden = true; }, 1100);
     };
-    setTimeout(finish, reduce ? 0 : 2500);
+    setTimeout(finish, reduce ? 0 : 3100);
   }
   env.addEventListener('click', openGate);
 
