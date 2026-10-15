@@ -116,7 +116,7 @@ html[lang="uz-Latn"] .sheet__names{margin:.3em 0 -.4em}
 .env__leaves{position:absolute;z-index:0;display:block;height:auto;pointer-events:none}
 .env__leaves--a{width:52%;left:-17%;bottom:-36%;transform:rotate(-130deg)}
 .env__leaves--b{width:34%;right:-9%;top:-46%;transform:rotate(38deg)}
-.env__leaves--c{width:46%;right:-20%;top:-22%;transform:rotate(78deg)}
+.env__leaves--c{width:24%;right:-12%;top:-10%;transform:rotate(60deg)}
 .env__back{
   position:absolute;inset:0;border-radius:5px;
   background:var(--girih) 50% 0/30px 30px,linear-gradient(180deg,#6B7646,#4A5230);
@@ -242,10 +242,8 @@ body.is-open .hero__when{animation-delay:1.45s}
 .sheet__orn path{fill:none;stroke:var(--gold);stroke-width:1.1}
 .deco{position:absolute;z-index:3;display:block;height:auto;pointer-events:none;filter:drop-shadow(0 8px 10px rgba(40,44,24,.38))}
 .sheet__deco--top{width:34%;right:-11%;top:-2.5%;transform:rotate(18deg)}
-.sheet__deco--bottom{width:38%;left:-13%;bottom:-92px;transform:rotate(-128deg)}
-.sheet__deco--anor{width:23%;left:8%;bottom:-52px;transform:rotate(-14deg)}
-.tile__deco--anor{width:29%;right:-5%;top:-40px;transform:rotate(16deg)}
-.tile__deco--half{width:16%;right:21%;top:-22px;transform:rotate(-20deg)}
+.sheet__deco--bottom{width:36%;left:-12%;bottom:-70px;transform:rotate(-24deg)}
+.tile__deco--rose{width:22%;right:-7%;top:-64px;transform:rotate(28deg)}
 .sheet__body{
   position:relative;padding:2px 9.5% 112px;text-align:center;color:var(--ink);
   background:var(--paper);
@@ -274,7 +272,7 @@ body.is-open .hero__when{animation-delay:1.45s}
   box-shadow:0 24px 46px rgba(40,44,24,.4),inset 0 0 0 1px rgba(255,236,240,.8),inset 0 0 0 4px rgba(142,63,80,.45);
 }
 .frame::before{content:"";position:absolute;inset:6px;border:1px solid rgba(142,63,80,.55);border-radius:4px;pointer-events:none}
-.frame__deco--a{width:34%;left:-13%;bottom:-17%;transform:rotate(-124deg)}
+.frame__deco--a{width:30%;left:-12%;bottom:-16%;transform:rotate(-18deg)}
 .frame__deco--b{width:30%;right:-12%;top:-15%;transform:rotate(22deg)}
 .ticket{
   position:relative;width:100%;aspect-ratio:16/10;border-radius:2px;overflow:hidden;
