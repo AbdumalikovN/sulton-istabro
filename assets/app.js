@@ -221,7 +221,6 @@
   })();
 
   /* ---------- scroll: parallax, foil shine ---------- */
-  const hero = $('#hero');
   let ticking = false;
   function onScroll() {
     if (ticking) return; ticking = true;
@@ -229,7 +228,6 @@
       const max = Math.max(1, root.scrollHeight - innerHeight);
       root.style.setProperty('--p', Math.min(1, Math.max(0, scrollY / max)).toFixed(4));
       root.style.setProperty('--shine', ((scrollY / innerHeight) * 46 % 100).toFixed(2));
-      root.style.setProperty('--sy', Math.min(scrollY, hero.offsetHeight).toFixed(1) + 'px');
       ticking = false;
     });
   }
@@ -261,7 +259,7 @@
     const el = document.createElement('div'); el.className = 'bf bf--page';
     el.innerHTML = bf.querySelector('.bf__body').outerHTML;
     const W = innerWidth, H = innerHeight;
-    el.style.offsetPath = `path("M ${-W * .2} ${H * .22} C ${W * .1} ${H * .05}, ${W * .3} ${H * .38}, ${W * .5} ${H * .2} S ${W * .8} ${H * .04}, ${W * .95} ${H * .18} S ${W * 1.15} ${H * .3}, ${W * 1.3} ${H * .2}")`;
+    el.style.offsetPath = `path("M ${-W * .2} ${H * .66} C ${W * .1} ${H * .56}, ${W * .3} ${H * .76}, ${W * .5} ${H * .62} S ${W * .8} ${H * .52}, ${W * .95} ${H * .66} S ${W * 1.15} ${H * .74}, ${W * 1.3} ${H * .6}")`;
     document.body.appendChild(el);
     requestAnimationFrame(() => el.classList.add('is-crossing'));
     el.addEventListener('animationend', e => { if (e.animationName === 'bf-cross') el.remove(); });
