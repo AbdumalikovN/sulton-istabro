@@ -433,12 +433,14 @@ body.is-open .hero__when{transition-delay:2.85s}
 .cd{display:flex;justify-content:center;margin-top:10px}
 .cd div{flex:1;max-width:104px;padding:0 4px}
 .cd div + div{border-left:1px solid rgba(251,246,232,.45)}
-.cd b{
-  position:relative;display:grid;height:1.1em;overflow:hidden;font-weight:300;font-size:clamp(2.5rem,12vw,3.7rem);line-height:1.1;font-variant-numeric:tabular-nums lining-nums;
+.cd b{position:relative;display:grid;height:1.1em;overflow:hidden;font-weight:300;font-size:clamp(2.5rem,12vw,3.7rem);line-height:1.1;font-variant-numeric:tabular-nums lining-nums}
+/* the foil sits on the digit itself, not on the clipping box: Safari drops background-clip:text
+   when the clipped element has overflow:hidden and animated children */
+.cd b > span{
+  grid-area:1/1;display:block;
   background-image:var(--foil);background-size:240% 100%;background-position:calc(var(--shine) * 1%) 0;
   -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
 }
-.cd b > span{grid-area:1/1;display:block}
 .cd b > span.out{animation:roll-out .45s cubic-bezier(.5,0,.7,.4) forwards}
 .cd b > span.new{animation:roll-in .45s cubic-bezier(.2,.8,.3,1) forwards}
 @keyframes roll-out{to{transform:translateY(-100%);opacity:0}}
