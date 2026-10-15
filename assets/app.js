@@ -222,7 +222,7 @@
           d.rot += d.vr;
           drawLeaf(ctx, d.x, d.y, d.r, d.rot, Math.cos(d.rot * 1.7), Math.min(1, d.life * 1.6), d.kind);
         } else {
-          ctx.fillStyle = `rgba(248,${205 + (d.tone * 30 | 0)},${120 + (d.tone * 60 | 0)},${d.life})`;
+          ctx.fillStyle = `rgba(${235 + (d.tone * 20 | 0)},${160 + (d.tone * 60 | 0)},${175 + (d.tone * 40 | 0)},${d.life})`;
           ctx.beginPath(); ctx.arc(d.x, d.y, d.r * (.5 + d.life * .5), 0, 6.2832); ctx.fill();
         }
       }
@@ -326,11 +326,11 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const w = r.width, h = r.height;
       const g = ctx.createLinearGradient(0, 0, w, h);
-      g.addColorStop(0, '#5A1622'); g.addColorStop(.55, '#7A2A14'); g.addColorStop(1, '#4A1420');
+      g.addColorStop(0, '#6B7646'); g.addColorStop(.55, '#8E9468'); g.addColorStop(1, '#5F6B3C');
       ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
       // a drift of leaves, small ones underneath, big ones on top
       const n = Math.round(w * h / 230);
-      ctx.shadowColor = 'rgba(30,5,0,.45)'; ctx.shadowBlur = 5; ctx.shadowOffsetY = 1.5;
+      ctx.shadowColor = 'rgba(30,36,18,.4)'; ctx.shadowBlur = 5; ctx.shadowOffsetY = 1.5;
       for (let i = 0; i < n; i++) {
         const k = i / n;
         drawLeaf(ctx, -10 + Math.random() * (w + 20), -10 + Math.random() * (h + 20), 44 + k * 34 + Math.random() * 14,
